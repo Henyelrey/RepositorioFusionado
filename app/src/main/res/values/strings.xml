@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">GranTurismoJPC</string>
-    <string name="mapbox_access_token">aqui_va_el_token</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoiaGVueWVsIiwiYSI6ImNtYWJiOGh5cTB6eGwycW82ejd6ZWc0a2oifQ.j1sSFAHaBjtMikfSAh8Ung</string>
 </resources>

@@ -180,10 +180,14 @@ fun Reservas(
             val context = LocalContext.current
             val proveedor = paquete?.proveedor
             val numeroWhatsapp = proveedor?.telefono?.replace("+", "")?.replace(" ", "")
+
+            val mensaje = "Hola ${paquete?.proveedor}, estoy interesado en tu paquete ${paquete?.titulo}" +
+                    " con el precio ${paquete?.precioTotal}"
             Button(
                 onClick = {
                     numeroWhatsapp?.let {
-                        val url = "https://wa.me/$it"
+                        val mensajeCodificado = Uri.encode(mensaje)
+                        val url = "https://wa.me/$it?text=$mensajeCodificado"
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                         context.startActivity(intent)
                     }
