@@ -18,6 +18,8 @@ import pe.edu.upeu.granturismojpc.repository.ProveedorRepository
 import pe.edu.upeu.granturismojpc.repository.ProveedorRepositoryImp
 import pe.edu.upeu.granturismojpc.repository.ResenaRepository
 import pe.edu.upeu.granturismojpc.repository.ResenaRepositoryImp
+import pe.edu.upeu.granturismojpc.repository.ReservaRepository
+import pe.edu.upeu.granturismojpc.repository.ReservaRepositoryImp
 import pe.edu.upeu.granturismojpc.repository.ServicioAlimentacionRepository
 import pe.edu.upeu.granturismojpc.repository.ServicioAlimentacionRepositoryImp
 import pe.edu.upeu.granturismojpc.repository.ServicioArtesaniaRepository
@@ -95,4 +97,7 @@ abstract class RepositoryModule {
     @Singleton
     abstract fun actividadDetalleRepository(actvdetRepos:
                                           ActividadDetalleRepositoryImpl): ActividadDetalleRepository
+    @Binds
+    @Singleton
+    abstract fun reservaRepository(reservaRepos: ReservaRepositoryImp): ReservaRepository
 }

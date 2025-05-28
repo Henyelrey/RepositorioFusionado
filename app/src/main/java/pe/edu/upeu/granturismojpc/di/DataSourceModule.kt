@@ -12,6 +12,7 @@ import pe.edu.upeu.granturismojpc.data.remote.RestPaquete
 import pe.edu.upeu.granturismojpc.data.remote.RestPaqueteDetalle
 import pe.edu.upeu.granturismojpc.data.remote.RestProveedor
 import pe.edu.upeu.granturismojpc.data.remote.RestResena
+import pe.edu.upeu.granturismojpc.data.remote.RestReserva
 import pe.edu.upeu.granturismojpc.data.remote.RestServicio
 import pe.edu.upeu.granturismojpc.data.remote.RestServicioAlimentacion
 import pe.edu.upeu.granturismojpc.data.remote.RestServicioArtesania
@@ -122,6 +123,11 @@ class DataSourceModule {
     @Provides
     fun restActividadDetalle(retrofit: Retrofit): RestActividadDetalle{
         return retrofit.create(RestActividadDetalle::class.java)
+    }
+    @Singleton
+    @Provides
+    fun restReserva(retrofit: Retrofit): RestReserva {
+        return retrofit.create(RestReserva::class.java)
     }
 
 }

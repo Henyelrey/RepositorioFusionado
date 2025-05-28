@@ -23,8 +23,9 @@ import pe.edu.upeu.granturismojpc.ui.presentation.screens.DetalleScreen
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.Pantalla1
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.Pantalla2
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.Pantalla3
-import pe.edu.upeu.granturismojpc.ui.presentation.screens.Pantalla4
+
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.Pantalla5
+
 //import pe.edu.upeu.granturismojpc.ui.presentation.screens.Reservas
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.actividad.ActividadForm
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.actividad.ActividadMain
@@ -51,6 +52,8 @@ import pe.edu.upeu.granturismojpc.ui.presentation.screens.proveedor.ProveedorMai
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.register.RegisterScreen
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.resena.ResenaForm
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.resena.ResenaMain
+import pe.edu.upeu.granturismojpc.ui.presentation.screens.reserva.Pantalla4
+import pe.edu.upeu.granturismojpc.ui.presentation.screens.reserva.ReservaViewModel
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.reserva.Reservas
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.servicio.ServicioForm
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.servicio.ServicioMain
@@ -109,9 +112,15 @@ fun NavigationHost(
         composable(Destinations.Pantalla3.route) {
             Pantalla3()
         }
+
         composable(Destinations.Pantalla4.route) {
-            Pantalla4()
+            val reservaViewModel: ReservaViewModel = hiltViewModel()
+            Pantalla4(
+                navController = navController,
+                reservaViewModel = reservaViewModel
+            )
         }
+
         composable(Destinations.Pantalla5.route) {
             Pantalla5()
         }
@@ -450,6 +459,8 @@ fun NavigationHost(
         }
         composable(Destinations.Privacy.route) { PrivacyScreen() }
         composable(Destinations.Terms.route) { CondicionesScreen() }
+
+
     }
 
 }
