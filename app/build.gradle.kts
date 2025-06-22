@@ -98,6 +98,10 @@ dependencies {
     implementation("com.google.android.gms:play-services-location:21.0.1")
     implementation ("com.google.accompanist:accompanist-permissions:0.37.2")
 
+    //WebSockets
+
+    implementation("org.java-websocket:Java-WebSocket:1.5.3")
+
 }
 
 tasks.withType<JavaCompile>().configureEach {

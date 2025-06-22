@@ -35,6 +35,7 @@ import pe.edu.upeu.granturismojpc.ui.presentation.components.PaqueteCard
 
 
 import pe.edu.upeu.granturismojpc.ui.presentation.components.SimpleBottomNavigationBar
+import pe.edu.upeu.granturismojpc.utils.TokenUtils
 
 @Composable
 fun HomeScreen(
@@ -122,6 +123,8 @@ fun HomeScreen(
                     navController = navController
                 )
             }
+            println("🔐 TOKEN USADO: ${TokenUtils.TOKEN_CONTENT}")
+
 
 
 

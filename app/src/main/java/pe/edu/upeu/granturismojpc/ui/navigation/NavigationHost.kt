@@ -31,6 +31,8 @@ import pe.edu.upeu.granturismojpc.ui.presentation.screens.actividad.ActividadFor
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.actividad.ActividadMain
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.actividaddetalle.ActividadDetalleForm
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.actividaddetalle.ActividadDetalleMain
+import pe.edu.upeu.granturismojpc.ui.presentation.screens.chatbot.ChatScreen
+import pe.edu.upeu.granturismojpc.ui.presentation.screens.chatbot.ChatViewModel
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.destino.DestinoForm
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.destino.DestinoMain
 import pe.edu.upeu.granturismojpc.ui.presentation.screens.home.HomeScreen
@@ -459,6 +461,10 @@ fun NavigationHost(
         }
         composable(Destinations.Privacy.route) { PrivacyScreen() }
         composable(Destinations.Terms.route) { CondicionesScreen() }
+
+        composable(Destinations.chat.route) {
+            ChatScreen(viewModel = hiltViewModel<ChatViewModel>())
+        }
 
 
     }

@@ -26,6 +26,7 @@ import androidx.navigation.NavController
 fun CategoryChips(navController: NavController) {
     val categories = listOf(
         "Destacado" to "pantallahome",
+        "Chat" to "chat",
         "Hospedaje" to "ServicioHoteleraMain",
         "Artesanía" to "ServicioArtesaniamain",
         "Almuerzo" to "servicioalimentacionmain",
@@ -37,6 +38,7 @@ fun CategoryChips(navController: NavController) {
 
     val icons = listOf(
         Icons.Filled.Star,
+        Icons.Filled.Message,
         Icons.Filled.Apartment,
         Icons.Filled.ShoppingCart,
         Icons.Filled.Restaurant,

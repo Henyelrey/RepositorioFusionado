@@ -156,6 +156,7 @@ sealed class Destinations(
     object Terms: Destinations("condiciones","Condiciones de uso", Icons.Filled.DateRange)
 
 
+    object chat : Destinations("chat", "ChatBot", Icons.Filled.Face)
 
 
 
