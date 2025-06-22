@@ -8,16 +8,19 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import pe.edu.upeu.granturismojpc.ui.presentation.screens.chatbot.ChatViewModel
+// No necesita cambios aquí, ya que el ViewModel se encarga de la fuente de los mensajes
+// import pe.edu.upeu.granturismojpc.ui.presentation.screens.chatbot.ChatViewModel // Ya está importado por @Composable
+import pe.edu.upeu.granturismojpc.utils.ChatStateHolder // Importa para posible uso, aunque el ViewModel lo maneja
 
 @Composable
 fun ChatScreen(viewModel: ChatViewModel = viewModel()) {
+    // Sigue observando los mensajes del ViewModel, que ahora provienen del Singleton
     val mensajes by viewModel.mensajes.collectAsState()
     var texto by remember { mutableStateOf("") }
 
     Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
         Text("ChatBot", style = MaterialTheme.typography.titleLarge)
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(30.dp))
 
         LazyColumn(modifier = Modifier.weight(1f).fillMaxWidth()) {
             items(mensajes) { msg ->

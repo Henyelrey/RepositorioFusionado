@@ -8,12 +8,12 @@
     import kotlinx.coroutines.launch
     import pe.edu.upeu.granturismojpc.data.remote.ChatWebSocketClient
     import pe.edu.upeu.granturismojpc.model.ChatMessage
+    import pe.edu.upeu.granturismojpc.utils.ChatStateHolder
     import pe.edu.upeu.granturismojpc.utils.TokenUtils
 
     class ChatViewModel : ViewModel() {
 
-        private val _mensajes = MutableStateFlow<List<ChatMessage>>(emptyList())
-        val mensajes: StateFlow<List<ChatMessage>> = _mensajes.asStateFlow()
+        val mensajes = ChatStateHolder.mensajes
 
         private var cliente: ChatWebSocketClient? = null
         private var conectado = false
@@ -26,7 +26,7 @@
             cliente = ChatWebSocketClient(
                 onMessageReceived = { mensaje ->
                     viewModelScope.launch {
-                        _mensajes.update { it + mensaje }
+                        ChatStateHolder.addMessage(mensaje) // Agrega el mensaje al Singleton
                     }
                 },
                 onConnected = {
@@ -36,6 +36,7 @@
                 onDisconnected = {
                     conectado = false
                     println("🔌 WebSocket desconectado.")
+                    // Opcional: Podrías querer reconectar aquí si es un cierre inesperado
                 },
                 onError = { error ->
                     conectado = false
@@ -52,12 +53,27 @@
             if (contenido.isNotBlank()) {
                 if (!conectado) {
                     println("❌ Aún no conectado. Espera unos segundos antes de enviar.")
+                    // Podrías mostrar un Toast al usuario aquí
                     return
                 }
                 val mensaje = ChatMessage(remitente, contenido)
                 cliente?.enviar(remitente, contenido)
-                _mensajes.update { it + mensaje }
+                ChatStateHolder.addMessage(mensaje) // Agrega el mensaje al Singleton para que también lo vea el remitente
             }
+        }
+        // Opcional: Un método para desconectar el WebSocket cuando el ViewModel ya no es necesario
+        override fun onCleared() {
+            super.onCleared()
+            cliente?.disconnect()
+            println("🔌 WebSocket desconectado al limpiar ViewModel.")
+        }
+
+        /**
+         * Este método debería llamarse desde tu lógica de cierre de sesión.
+         * No desde este ViewModel, sino desde el ViewModel que gestiona la sesión de usuario.
+         */
+        fun clearChatHistory() {
+            ChatStateHolder.clearMessages()
         }
     }
 

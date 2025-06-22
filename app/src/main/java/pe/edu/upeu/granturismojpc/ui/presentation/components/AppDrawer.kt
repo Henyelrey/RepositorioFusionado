@@ -25,6 +25,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import pe.edu.upeu.granturismojpc.R
 import pe.edu.upeu.granturismojpc.ui.navigation.Destinations
+import pe.edu.upeu.granturismojpc.utils.ChatStateHolder
 
 @Composable
 fun AppDrawer(
@@ -89,6 +90,8 @@ fun AppDrawer(
                 navController.navigate(Destinations.Login.route) {
                     popUpTo(Destinations.Login.route) { inclusive = true }
                 }
+                // Borrar los mensajes del chat
+                ChatStateHolder.clearMessages()
             },
             icon = {
                 Icon(
