@@ -42,7 +42,7 @@
                     conectado = false
                     println("❌ Error en WebSocket: $error")
                 },
-                token = TokenUtils.TOKEN_CONTENT
+                token = TokenUtils.TOKEN
             )
             cliente?.connect()
         }

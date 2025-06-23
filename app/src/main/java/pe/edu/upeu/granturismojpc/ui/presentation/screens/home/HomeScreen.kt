@@ -123,6 +123,7 @@ fun HomeScreen(
                     navController = navController
                 )
             }
+            println("🔐 TOKEN USADO: ${TokenUtils.TOKEN}")
             println("🔐 TOKEN USADO: ${TokenUtils.TOKEN_CONTENT}")
 
 
