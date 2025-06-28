@@ -15,6 +15,8 @@ class ChatWebSocketClient(
     private val onConnected: (() -> Unit)? = null,
     private val onDisconnected: ((String) -> Unit)? = null, // Callback para desconexión
     private val onError: ((Exception) -> Unit)? = null // Callback para errores
+
+
 ) : WebSocketClient(
     URI("ws://localhost:8080/chat?token=${URLEncoder.encode(token, StandardCharsets.UTF_8.toString())}")
 
@@ -29,7 +31,8 @@ class ChatWebSocketClient(
     override fun onMessage(message: String?) {
         message?.let {
             try {
-                val msg = gson.fromJson(it, ChatMessage::class.java)
+                val originalMsg = gson.fromJson(it, ChatMessage::class.java)
+                val msg = ChatMessage(remitente = "bot", contenido = originalMsg.contenido)
                 onMessageReceived(msg)
             } catch (e: Exception) {
                 println("Error al parsear mensaje JSON del WebSocket: $it, Error: ${e.message}")

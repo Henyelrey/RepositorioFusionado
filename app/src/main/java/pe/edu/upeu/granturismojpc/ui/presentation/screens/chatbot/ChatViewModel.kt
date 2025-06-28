@@ -6,10 +6,19 @@
     import androidx.lifecycle.viewModelScope
     import kotlinx.coroutines.flow.*
     import kotlinx.coroutines.launch
+    //import pe.edu.upeu.granturismojpc.data.remote.ApiClient
+    import pe.edu.upeu.granturismojpc.data.remote.ChatApi
+    //import pe.edu.upeu.granturismojpc.data.remote.ChatApiClient
     import pe.edu.upeu.granturismojpc.data.remote.ChatWebSocketClient
     import pe.edu.upeu.granturismojpc.model.ChatMessage
+
     import pe.edu.upeu.granturismojpc.utils.ChatStateHolder
     import pe.edu.upeu.granturismojpc.utils.TokenUtils
+
+    import pe.edu.upeu.granturismojpc.model.toChatMessages
+
+
+
 
     class ChatViewModel : ViewModel() {
 
@@ -19,7 +28,34 @@
         private var conectado = false
 
         init {
+
+            ChatStateHolder.clearMessages()
+
+            viewModelScope.launch {
+                try {
+                    val token = "Bearer ${TokenUtils.TOKEN}"
+                    val sesionDTO = ChatApi.ApiClient.chatApi.obtenerSesionActiva(token)
+
+                    val historial = ChatApi.ApiClient.chatApi.obtenerMensajesPorSesion(token, sesionDTO.sesionId)
+
+
+                    historial.forEach { mensaje ->
+                        ChatStateHolder.addMessage(mensaje)
+                    }
+
+
+
+
+
+                } catch (e: Exception) {
+                    println("❌ Error cargando historial: ${e.message}")
+                }
+
+            }
+
+
             conectarWebSocket()
+
         }
 
         private fun conectarWebSocket() {
@@ -49,17 +85,9 @@
 
 
         fun enviarMensaje(contenido: String) {
-            val remitente = TokenUtils.USER_LOGIN
-            if (contenido.isNotBlank()) {
-                if (!conectado) {
-                    println("❌ Aún no conectado. Espera unos segundos antes de enviar.")
-                    // Podrías mostrar un Toast al usuario aquí
-                    return
-                }
-                val mensaje = ChatMessage(remitente, contenido)
-                cliente?.enviar(remitente, contenido)
-                ChatStateHolder.addMessage(mensaje) // Agrega el mensaje al Singleton para que también lo vea el remitente
-            }
+            val mensaje = ChatMessage("usuario", contenido)
+            cliente?.enviar("usuario", contenido)
+            ChatStateHolder.addMessage(mensaje)
         }
         // Opcional: Un método para desconectar el WebSocket cuando el ViewModel ya no es necesario
         override fun onCleared() {
@@ -68,6 +96,17 @@
             println("🔌 WebSocket desconectado al limpiar ViewModel.")
         }
 
+
+
+
+
+
+
+
+
+
+
+
         /**
          * Este método debería llamarse desde tu lógica de cierre de sesión.
          * No desde este ViewModel, sino desde el ViewModel que gestiona la sesión de usuario.
@@ -75,5 +114,7 @@
         fun clearChatHistory() {
             ChatStateHolder.clearMessages()
         }
+
+
     }
 

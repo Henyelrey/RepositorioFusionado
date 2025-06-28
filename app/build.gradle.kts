@@ -101,6 +101,10 @@ dependencies {
     //WebSockets
 
     implementation("org.java-websocket:Java-WebSocket:1.5.3")
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.33.0-alpha")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0") // Usa la última versión compatible
+
+
 
 }
 
