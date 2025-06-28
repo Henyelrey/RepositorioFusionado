@@ -8,8 +8,10 @@ import pe.edu.upeu.granturismojpc.model.Conversacion
 import pe.edu.upeu.granturismojpc.model.SesionDTO
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface ChatApi {
@@ -24,6 +26,19 @@ interface ChatApi {
     suspend fun obtenerSesionActiva(
         @Header("Authorization") token: String
     ): SesionDTO
+
+    @GET("/api/chat/sesiones")
+    suspend fun listarSesiones(@Header("Authorization") token: String): List<SesionDTO>
+
+    @POST("/api/chat/sesiones")
+    suspend fun crearSesion(@Header("Authorization") token: String): SesionDTO
+
+    @DELETE("/api/chat/sesiones/{id}")
+    suspend fun eliminarSesion(
+        @Header("Authorization") token: String,
+        @Path("id") sesionId: Long
+    )
+
 
     object ApiClient {
         val chatApi: ChatApi by lazy {
